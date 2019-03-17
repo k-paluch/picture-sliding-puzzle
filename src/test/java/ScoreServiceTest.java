@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import sk.tuke.gamestudio.entity.Score;
+import sk.tuke.gamestudio.service.ScoreException;
 import sk.tuke.gamestudio.service.ScoreService;
 import sk.tuke.gamestudio.service.ScoreServiceJDBC;
 
@@ -29,19 +30,19 @@ public class ScoreServiceTest{
     }
 
     @Test
-    public void testDbInit() throws Exception {
+    public void testDbInit() throws ScoreException {
         assertEquals(0, scoreService.getBestScores(GAME_NAME).size());
     }
 
     @Test
-    public void testAddScore() throws Exception {
+    public void testAddScore() throws ScoreException {
         Score score = new Score(GAME_NAME, "miska", 15, new Date());
         scoreService.addScore(score);
         assertEquals(1, scoreService.getBestScores(GAME_NAME).size());
     }
 
     @Test
-    public void testGetBestScores() throws Exception {
+    public void testGetBestScores() throws ScoreException {
         Score s1 = new Score(GAME_NAME, "janko", 150, new Date());
         Score s2 = new Score(GAME_NAME, "hrasko", 300, new Date());
 

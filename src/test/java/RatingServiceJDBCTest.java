@@ -1,9 +1,6 @@
 import org.junit.Test;
-import sk.tuke.gamestudio.pictureslidingpuzzle.consoleui.ConsoleUI;
-import sk.tuke.gamestudio.service.CommentException;
 import sk.tuke.gamestudio.service.RatingException;
 import sk.tuke.gamestudio.service.RatingServiceJDBC;
-import sk.tuke.gamestudio.service.ScoreException;
 
 
 public class RatingServiceJDBCTest extends RatingServiceTest{
@@ -12,24 +9,18 @@ public class RatingServiceJDBCTest extends RatingServiceTest{
     }
 
     @Test
-    public void testDbInit() throws Exception {
+    public void testDbInit() throws RatingException {
         super.testDbInit();
     }
 
     @Test
-    public void testSetRating() throws Exception {
+    public void testSetRating() throws RatingException {
         super.testSetRating();
     }
 
     @Test
-    public void testAverageRating() throws Exception {
+    public void testAverageRating() throws RatingException {
         super.testAverageRating();
     }
 
-    public static class PictureSlidingPuzzle {
-        public static void main(String[] args) throws CommentException, RatingException, ScoreException {
-            ConsoleUI ui = new ConsoleUI();
-            ui.run();
-        }
-    }
 }

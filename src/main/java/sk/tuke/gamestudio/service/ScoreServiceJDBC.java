@@ -6,7 +6,6 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
-import static sk.tuke.gamestudio.pictureslidingpuzzle.core.Field.GAME_NAME;
 /*
     CREATE TABLE score (
         player VARCHAR(64) NOT NULL,

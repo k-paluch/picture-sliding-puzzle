@@ -8,7 +8,7 @@ public class Field {
     private Gamestate gamestate;
     private NullPuzzle nullPuzzle;
     private long startMillis;
-    public static final String GAME_NAME = "Picture Sliding Puzzle-Paluch";
+    public static final String GAME_NAME = "Picture Sliding Puzzle";
     private Difficulty difficulty;
     private boolean alreadyShuffled;
 
@@ -24,7 +24,7 @@ public class Field {
         this.difficulty = difficulty;
     }
 
-    public Difficulty getDifficulty() {
+    private Difficulty getDifficulty() {
         return this.difficulty;
     }
 
@@ -123,7 +123,9 @@ public class Field {
                     nullPuzzle.setColumn(this.getNullPuzzle().getColumn());
                 }
             }else {
-                System.out.println("Move is note possible.");
+                if(alreadyShuffled){
+                    System.out.println("Move is note possible.");
+                }
             }
         }
         else if (input.equalsIgnoreCase("DOWN")) {
@@ -135,7 +137,9 @@ public class Field {
                     nullPuzzle.setColumn(this.getNullPuzzle().getColumn());
                 }
             }else {
-                System.out.println("Move is note possible.");
+                if(alreadyShuffled){
+                    System.out.println("Move is note possible.");
+                }
             }
         }
         else if (input.equalsIgnoreCase("RIGHT")) {
@@ -148,7 +152,9 @@ public class Field {
                     nullPuzzle.setColumn(this.getNullPuzzle().getColumn() - 1);
                 }
             }else {
-                System.out.println("Move is note possible.");
+                if(alreadyShuffled){
+                    System.out.println("Move is note possible.");
+                }
             }
         }
         else if (input.equalsIgnoreCase("LEFT")) {
@@ -160,7 +166,9 @@ public class Field {
                     nullPuzzle.setColumn(this.getNullPuzzle().getColumn() + 1);
                 }
             }else {
-                System.out.println("Move is note possible.");
+                if(alreadyShuffled){
+                    System.out.println("Move is note possible.");
+                }
             }
         }
         else {

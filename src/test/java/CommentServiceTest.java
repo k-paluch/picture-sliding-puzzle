@@ -2,6 +2,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import sk.tuke.gamestudio.entity.Comment;
+import sk.tuke.gamestudio.service.CommentException;
 import sk.tuke.gamestudio.service.CommentService;
 import sk.tuke.gamestudio.service.CommentServiceJDBC;
 
@@ -29,19 +30,19 @@ public class CommentServiceTest {
     }
 
     @Test
-    public void testDbInit() throws Exception {
+    public void testDbInit() throws CommentException {
         assertEquals(0, commentService.getComments(GAME_NAME).size());
     }
 
     @Test
-    public void testAddComment() throws Exception{
+    public void testAddComment() throws CommentException {
         Comment comment = new Comment("miska", GAME_NAME, "Super hra, odporucam", new Date());
         commentService.addComment(comment);
         assertEquals(1, commentService.getComments(GAME_NAME).size());
     }
 
     @Test
-    public void testGetComments() throws Exception {
+    public void testGetComments() throws CommentException {
         Comment c1 = new Comment("miska", GAME_NAME, "perfect game", new Date());
         Comment c2 = new Comment("hrasko", GAME_NAME, "najuzauzasnejsia igra v celej jugoslavii", new Date());
 

@@ -2,6 +2,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import sk.tuke.gamestudio.entity.Rating;
+import sk.tuke.gamestudio.service.RatingException;
 import sk.tuke.gamestudio.service.RatingService;
 import sk.tuke.gamestudio.service.RatingServiceJDBC;
 
@@ -32,18 +33,18 @@ public class RatingServiceTest {
     }
 
     @Test
-    public void testDbInit() throws Exception {
+    public void testDbInit() throws RatingException {
         assertEquals(0, ratingService.getRating(GAME_NAME,""));
     }
 
     @Test
-    public void testSetRating() throws Exception {
+    public void testSetRating() throws RatingException {
         Rating rating = new Rating("miska",GAME_NAME,  5, new Date());
         ratingService.setRating(rating);
         assertEquals(5, ratingService.getRating(GAME_NAME,"miska"));
     }
     @Test
-    public void testAverageRating() throws Exception {
+    public void testAverageRating() throws RatingException {
         Rating r2 = new Rating("miska", GAME_NAME, 7, new Date());
         Rating r1 = new Rating("jarko", GAME_NAME, 3, new Date());
 
