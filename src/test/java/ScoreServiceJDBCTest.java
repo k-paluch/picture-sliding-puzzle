@@ -2,6 +2,8 @@ import org.junit.Test;
 import sk.tuke.gamestudio.service.ScoreException;
 import sk.tuke.gamestudio.service.ScoreServiceJDBC;
 
+import java.sql.SQLException;
+
 
 public class ScoreServiceJDBCTest extends ScoreServiceTest {
     public ScoreServiceJDBCTest() {
@@ -14,12 +16,12 @@ public class ScoreServiceJDBCTest extends ScoreServiceTest {
     }
 
     @Test
-    public void testAddScore() throws ScoreException {
+    public void testAddScore() throws ScoreException, SQLException {
         super.testAddScore();
     }
 
     @Test
-    public void testGetBestScores() throws ScoreException {
+    public void testGetBestScores() throws ScoreException, SQLException {
         super.testGetBestScores();
     }
 

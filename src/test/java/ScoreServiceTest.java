@@ -7,6 +7,7 @@ import sk.tuke.gamestudio.service.ScoreServiceJDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
@@ -35,14 +36,14 @@ public class ScoreServiceTest{
     }
 
     @Test
-    public void testAddScore() throws ScoreException {
+    public void testAddScore() throws ScoreException, SQLException {
         Score score = new Score(GAME_NAME, "miska", 15, new Date());
         scoreService.addScore(score);
         assertEquals(1, scoreService.getBestScores(GAME_NAME).size());
     }
 
     @Test
-    public void testGetBestScores() throws ScoreException {
+    public void testGetBestScores() throws ScoreException, SQLException {
         Score s1 = new Score(GAME_NAME, "janko", 150, new Date());
         Score s2 = new Score(GAME_NAME, "hrasko", 300, new Date());
 

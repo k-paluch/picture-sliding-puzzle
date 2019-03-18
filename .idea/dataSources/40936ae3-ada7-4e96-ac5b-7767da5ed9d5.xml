@@ -9,7 +9,7 @@
       <Comment>default administrative connection database</Comment>
       <StateNumber>567</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1681</IntrospectionStateNumber>
+      <IntrospectionStateNumber>2205</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </database>
@@ -96,7 +96,7 @@
       <Comment>standard public schema</Comment>
       <StateNumber>360</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>1682</IntrospectionStateNumber>
+      <IntrospectionStateNumber>2206</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -165,9 +165,9 @@
       <SchemaId>11</SchemaId>
     </extension>
     <table id="26" parent="17" name="comment">
-      <ObjectId>24612</ObjectId>
+      <ObjectId>24638</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>673</StateNumber>
+      <StateNumber>2148</StateNumber>
     </table>
     <table id="27" parent="17" name="rating">
       <ObjectId>24633</ObjectId>
@@ -175,37 +175,37 @@
       <StateNumber>1680</StateNumber>
     </table>
     <table id="28" parent="17" name="score">
-      <ObjectId>24624</ObjectId>
+      <ObjectId>24644</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>918</StateNumber>
+      <StateNumber>2204</StateNumber>
     </table>
     <column id="29" parent="26" name="player">
       <Position>1</Position>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>673</StateNumber>
+      <StateNumber>2148</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="30" parent="26" name="game">
       <Position>2</Position>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>673</StateNumber>
+      <StateNumber>2148</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="31" parent="26" name="comment">
       <Position>3</Position>
       <DataType>varchar(1000)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>673</StateNumber>
+      <StateNumber>2148</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="32" parent="26" name="commentedon">
       <Position>4</Position>
-      <DataType>timestamp|0s</DataType>
+      <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>673</StateNumber>
-      <TypeId>1114</TypeId>
+      <StateNumber>2148</StateNumber>
+      <TypeId>1043</TypeId>
     </column>
     <column id="33" parent="27" name="player">
       <Position>1</Position>
@@ -252,28 +252,28 @@
       <Position>1</Position>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>918</StateNumber>
+      <StateNumber>2204</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="40" parent="28" name="game">
       <Position>2</Position>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>918</StateNumber>
+      <StateNumber>2204</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="41" parent="28" name="points">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>918</StateNumber>
+      <StateNumber>2204</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="42" parent="28" name="playedon">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>918</StateNumber>
+      <StateNumber>2204</StateNumber>
       <TypeId>1114</TypeId>
     </column>
   </database-model>

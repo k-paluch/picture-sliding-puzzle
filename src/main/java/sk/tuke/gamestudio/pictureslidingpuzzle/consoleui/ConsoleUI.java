@@ -11,6 +11,8 @@ import sk.tuke.gamestudio.service.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -105,7 +107,7 @@ public class ConsoleUI {
         } while (!(rate <= 5 && rate >= 0));
     }
 
-    private void saveScore() {
+    private void saveScore() throws SQLException {
         System.out.println("YOU WON!");
         int points = field.getScore();
         System.out.printf("Your score was: %d%n", points);
@@ -138,10 +140,11 @@ public class ConsoleUI {
         List<Comment> comments = commentService.getComments(GAME_NAME);
         for (Comment c : comments) {
             System.out.println(c.toString());
+            System.out.println();
         }
     }
 
-    public void run() throws CommentException, RatingException {
+    public void run() throws CommentException, RatingException, SQLException {
         printMenu();
 
         String line = readLine();
@@ -178,7 +181,7 @@ public class ConsoleUI {
         System.out.println("<X> Exit");
     }
 
-    private void play() throws CommentException, RatingException, ScoreException {
+    private void play() throws CommentException, RatingException, ScoreException, SQLException {
         do {
             field.render();
             processInput();

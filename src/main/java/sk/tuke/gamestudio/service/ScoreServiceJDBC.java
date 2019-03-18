@@ -3,7 +3,7 @@ package sk.tuke.gamestudio.service;
 import sk.tuke.gamestudio.entity.Score;
 
 import java.sql.*;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /*
@@ -33,7 +33,7 @@ public class ScoreServiceJDBC implements ScoreService {
                 ps.setString(1, score.getPlayer());
                 ps.setString(2, score.getGame());
                 ps.setInt(3, score.getPoints());
-                ps.setDate(4, new Date(score.getPlayedOn().getTime()));
+                ps.setTimestamp(4,Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format( new Timestamp(score.getPlayedOn().getTime()))));
                 ps.executeUpdate();
             }
         } catch (SQLException e) {

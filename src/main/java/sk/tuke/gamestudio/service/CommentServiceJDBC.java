@@ -3,6 +3,7 @@ package sk.tuke.gamestudio.service;
 import sk.tuke.gamestudio.entity.Comment;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class CommentServiceJDBC implements CommentService {
                 ps.setString(1, comment.getPlayer());
                 ps.setString(2, comment.getGame());
                 ps.setString(3, comment.getComment());
-                ps.setDate(4, new Date(comment.getCommentedOn().getTime()));
+                ps.setTimestamp(4, Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Timestamp(comment.getCommentedOn().getTime()))));
 
                 ps.executeUpdate();
             }

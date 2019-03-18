@@ -21,9 +21,13 @@ public class RatingServiceJDBC implements RatingService {
                 ps.setString(1, rating.getPlayer());
                 ps.setString(2, rating.getGame());
                 ps.setInt(3, rating.getRating());
-                ps.setDate(4, new Date(rating.getRatedon().getTime()));
+                ps.setTimestamp(4, new Timestamp(rating.getRatedon().getTime()));
                 ps.setInt(5, rating.getRating());
                 ps.executeUpdate();
+            }
+            try {
+                connection.close();
+            }catch (Exception ignored){
             }
         } catch (SQLException e) {
             throw new RatingException("Error saving rating", e);
