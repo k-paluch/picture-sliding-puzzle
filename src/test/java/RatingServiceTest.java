@@ -18,7 +18,7 @@ import static sk.tuke.gamestudio.pictureslidingpuzzle.core.Field.GAME_NAME;
 public class RatingServiceTest {
 
     RatingService ratingService = new RatingServiceJDBC();
-    private static final String DELETE = "DELETE FROM rating";
+    private static final String DELETE = "DELETE FROM rating WHERE game = 'Picture Sliding Puzzle'";
 
     private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USER = "postgres";

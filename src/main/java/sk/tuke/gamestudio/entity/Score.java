@@ -1,6 +1,7 @@
 package sk.tuke.gamestudio.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Score implements Comparable<Score>, Serializable {
@@ -54,7 +55,7 @@ public class Score implements Comparable<Score>, Serializable {
     @Override
     public String toString() {
         return  points +
-                "\t\t " + playedOn.toString() + "\t" +player ;
+                "\t\t " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(playedOn.getTime()) + "\t" +player ;
     }
 
     @Override

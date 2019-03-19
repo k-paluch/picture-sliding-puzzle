@@ -16,7 +16,7 @@ import static junit.framework.TestCase.assertEquals;
 import static sk.tuke.gamestudio.pictureslidingpuzzle.core.Field.GAME_NAME;
 public class CommentServiceTest {
     CommentService commentService = new CommentServiceJDBC();
-    private static final String DELETE = "DELETE FROM comment";
+    private static final String DELETE = "DELETE FROM comment WHERE game = 'Picture Sliding Puzzle'";
 
     private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USER = "postgres";

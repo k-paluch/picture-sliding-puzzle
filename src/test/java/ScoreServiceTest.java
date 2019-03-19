@@ -1,3 +1,4 @@
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import sk.tuke.gamestudio.entity.Score;
@@ -17,13 +18,13 @@ import static sk.tuke.gamestudio.pictureslidingpuzzle.core.Field.GAME_NAME;
 public class ScoreServiceTest{
     ScoreService scoreService = new ScoreServiceJDBC();
 
-    private static final String DELETE = "DELETE FROM score";
+    private static final String DELETE = "DELETE FROM score where game = 'Picture Sliding Puzzle'";
 
     private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USER = "postgres";
     private static final String PASS = "postgres";
 
-    @Before
+    @Before@After
     public void setUp() throws Exception {
         Connection c = DriverManager.getConnection(URL, USER, PASS);
         Statement s = c.createStatement();
