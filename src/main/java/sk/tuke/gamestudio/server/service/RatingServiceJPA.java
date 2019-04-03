@@ -24,6 +24,7 @@ public class RatingServiceJPA implements RatingService {
 
     @Override
     public int getRating(String game, String player) throws RatingException {
-        return (int)entityManager.createNamedQuery("Rating.getRating").setParameter("game",game).getSingleResult();
+        Float temp = Float.valueOf(entityManager.createNamedQuery("Rating.getRating").setParameter("game",game).getSingleResult().toString());
+        return temp.intValue();
     }
 }
