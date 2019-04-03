@@ -1,13 +1,14 @@
-package sk.tuke.gamestudio.service;
+package sk.tuke.gamestudio.server.service;
 
-import sk.tuke.gamestudio.entity.Rating;
+import sk.tuke.gamestudio.server.entity.Rating;
 
 import java.sql.*;
 
 public class RatingServiceJDBC implements RatingService {
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "postgres";
+    public static final String URL = "jdbc:postgresql://localhost/gamestudio";
+    public static final String USER = "postgres";
+    public static final String PASSWORD = "postgres";
+
 
     private final String SELECT_RATING =
             "SELECT game, player, rating, ratedon FROM rating WHERE (game = ?)";
@@ -24,10 +25,6 @@ public class RatingServiceJDBC implements RatingService {
                 ps.setTimestamp(4, new Timestamp(rating.getRatedon().getTime()));
                 ps.setInt(5, rating.getRating());
                 ps.executeUpdate();
-            }
-            try {
-                connection.close();
-            }catch (Exception ignored){
             }
         } catch (SQLException e) {
             throw new RatingException("Error saving rating", e);

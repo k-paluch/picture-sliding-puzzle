@@ -1,13 +1,29 @@
-package sk.tuke.gamestudio.entity;
+package sk.tuke.gamestudio.server.entity;
 
+import javax.persistence.*;
 import java.util.Date;
-
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "Rating.getRating",
+                query = "SELECT r FROM Rating r WHERE r.game=:game"),
+        @NamedQuery(name = "Rating.getAverageRating",
+                query = "SELECT AVG (rating) FROM Rating WHERE game=:game")
+})
 public class Rating {
     private String player;
     private String game;
     private int rating;
     private Date ratedon;
-
+    @Id
+    @GeneratedValue
+    private int ident;
+    public Rating() {}
+    public int getIdent(){
+        return this.ident;
+    }
+    public void setIdent(int ident){
+        this.ident = ident;
+    }
     public Rating(String player, String game, int rating, Date ratedon) {
         this.player = player;
         this.game = game;
@@ -49,12 +65,10 @@ public class Rating {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Rating{");
-        sb.append("player='").append(player).append('\'');
-        sb.append(", game='").append(game).append('\'');
-        sb.append(", rating=").append(rating);
-        sb.append(", ratedon=").append(ratedon);
-        sb.append('}');
-        return sb.toString();
+        return "Rating{" + "player='" + player + '\'' +
+                ", game='" + game + '\'' +
+                ", rating=" + rating +
+                ", ratedon=" + ratedon +
+                '}';
     }
 }

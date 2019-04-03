@@ -1,6 +1,6 @@
 import org.junit.Test;
-import sk.tuke.gamestudio.service.RatingException;
-import sk.tuke.gamestudio.service.RatingServiceJDBC;
+import sk.tuke.gamestudio.server.service.RatingException;
+import sk.tuke.gamestudio.server.service.RatingServiceJDBC;
 
 
 public class RatingServiceJDBCTest extends RatingServiceTest{

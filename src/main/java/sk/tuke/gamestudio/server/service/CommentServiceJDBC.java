@@ -1,6 +1,6 @@
-package sk.tuke.gamestudio.service;
+package sk.tuke.gamestudio.server.service;
 
-import sk.tuke.gamestudio.entity.Comment;
+import sk.tuke.gamestudio.server.entity.Comment;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentServiceJDBC implements CommentService {
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "postgres";
+    public static final String URL = "jdbc:postgresql://localhost/gamestudio";
+    public static final String USER = "postgres";
+    public static final String PASSWORD = "postgres";
+
 
     @Override
     public void addComment(Comment comment) throws CommentException {

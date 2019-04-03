@@ -1,6 +1,6 @@
-package sk.tuke.gamestudio.service;
+package sk.tuke.gamestudio.server.service;
 
-import sk.tuke.gamestudio.entity.Score;
+import sk.tuke.gamestudio.server.entity.Score;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -20,9 +20,10 @@ import java.util.*;
 //SELECT player, game, points, playedon FROM score WHERE game = 'mines' ORDER BY points DESC LIMIT 10;
 
 public class ScoreServiceJDBC implements ScoreService {
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String URL = "jdbc:postgresql://localhost/gamestudio";
     private static final String USER = "postgres";
     private static final String PASSWORD = "postgres";
+
 
 
     @Override

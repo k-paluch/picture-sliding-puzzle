@@ -1,6 +1,6 @@
-package sk.tuke.gamestudio.service;
+package sk.tuke.gamestudio.server.service;
 
-import sk.tuke.gamestudio.entity.Score;
+import sk.tuke.gamestudio.server.entity.Score;
 
 import java.sql.SQLException;
 import java.util.List;

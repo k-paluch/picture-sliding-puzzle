@@ -1,10 +1,10 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import sk.tuke.gamestudio.entity.Comment;
-import sk.tuke.gamestudio.service.CommentException;
-import sk.tuke.gamestudio.service.CommentService;
-import sk.tuke.gamestudio.service.CommentServiceJDBC;
+import sk.tuke.gamestudio.server.entity.Comment;
+import sk.tuke.gamestudio.server.service.CommentException;
+import sk.tuke.gamestudio.server.service.CommentService;
+import sk.tuke.gamestudio.server.service.CommentServiceJDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static sk.tuke.gamestudio.pictureslidingpuzzle.core.Field.GAME_NAME;
+import static sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Field.GAME_NAME;
 public class CommentServiceTest {
     CommentService commentService = new CommentServiceJDBC();
     private static final String DELETE = "DELETE FROM comment WHERE game = 'Picture Sliding Puzzle'";
@@ -24,9 +24,14 @@ public class CommentServiceTest {
 
     @Before@After
     public void setUp() throws Exception {
-        Connection c = DriverManager.getConnection(URL, USER, PASS);
-        Statement s = c.createStatement();
-        s.execute(DELETE);
+        try(Connection c = DriverManager.getConnection(URL, USER, PASS)) {
+            try (Statement s = c.createStatement()){
+                s.execute(DELETE);
+            }
+        }
+        catch (Exception e){
+            throw new Exception();
+        }
     }
 
     @Test

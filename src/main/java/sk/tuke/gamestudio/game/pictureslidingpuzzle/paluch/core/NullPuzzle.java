@@ -1,4 +1,4 @@
-package sk.tuke.gamestudio.pictureslidingpuzzle.core;
+package sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core;
 
 class NullPuzzle {
     private int row;

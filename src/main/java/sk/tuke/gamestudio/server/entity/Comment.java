@@ -1,13 +1,25 @@
-package sk.tuke.gamestudio.entity;
+package sk.tuke.gamestudio.server.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-
+@Entity
+@NamedQuery( name = "Comment.getComments",
+        query = "SELECT c FROM Comment c WHERE c.game=:game ORDER BY c.commentedOn DESC")
 public class Comment {
     private String player;
     private String game;
     private String comment;
     private Date commentedOn;
-
+    @Id
+    @GeneratedValue
+    private int ident;
+    public Comment() {}
+    public int getIdent() { return ident; }
+    public void setIdent(int ident) { this.ident = ident; }
     public Comment(String player, String game, String comment, Date commentedOn) {
         this.player = player;
         this.game = game;
@@ -49,9 +61,8 @@ public class Comment {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append(player).append(':');
-        sb.append("'").append(comment).append("'");
-        return sb.toString();
+        return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(getCommentedOn().getTime())+
+                ' ' + player + ": " +
+                "\033[0;1m" +comment;
     }
 }

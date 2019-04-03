@@ -1,4 +1,4 @@
-package sk.tuke.gamestudio.pictureslidingpuzzle.core;
+package sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core;
 
 public class Field {
     private Puzzle[][] puzzles;
@@ -181,9 +181,9 @@ public class Field {
             return Math.max(0, rowCount * columnCount * 10 - getPlayingTime());
         }
         if (getDifficulty().equals(Difficulty.MEDIUM)) {
-            return Math.max(0, rowCount * columnCount * 10 - getPlayingTime()) * 2;
+            return Math.max(0, rowCount * columnCount * 10*2 - getPlayingTime());
         } else {
-            return Math.max(0, rowCount * columnCount * 10 - getPlayingTime()) * 4;
+            return Math.max(0, rowCount * columnCount * 10*4 - getPlayingTime());
         }
     }
 

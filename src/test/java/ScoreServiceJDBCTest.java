@@ -1,6 +1,6 @@
 import org.junit.Test;
-import sk.tuke.gamestudio.service.ScoreException;
-import sk.tuke.gamestudio.service.ScoreServiceJDBC;
+import sk.tuke.gamestudio.server.service.ScoreException;
+import sk.tuke.gamestudio.server.service.ScoreServiceJDBC;
 
 import java.sql.SQLException;
 

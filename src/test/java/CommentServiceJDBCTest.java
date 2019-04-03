@@ -1,6 +1,6 @@
 import org.junit.Test;
-import sk.tuke.gamestudio.service.CommentException;
-import sk.tuke.gamestudio.service.CommentServiceJDBC;
+import sk.tuke.gamestudio.server.service.CommentException;
+import sk.tuke.gamestudio.server.service.CommentServiceJDBC;
 
 public class CommentServiceJDBCTest extends CommentServiceTest {
     public CommentServiceJDBCTest(){

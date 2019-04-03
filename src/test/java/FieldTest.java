@@ -1,7 +1,7 @@
 import org.junit.Test;
-import sk.tuke.gamestudio.pictureslidingpuzzle.core.Field;
-import sk.tuke.gamestudio.pictureslidingpuzzle.core.Gamestate;
-import sk.tuke.gamestudio.pictureslidingpuzzle.core.Puzzle;
+import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Field;
+import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Gamestate;
+import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Puzzle;
 
 import static junit.framework.TestCase.*;
 

@@ -1,10 +1,10 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import sk.tuke.gamestudio.entity.Rating;
-import sk.tuke.gamestudio.service.RatingException;
-import sk.tuke.gamestudio.service.RatingService;
-import sk.tuke.gamestudio.service.RatingServiceJDBC;
+import sk.tuke.gamestudio.server.entity.Rating;
+import sk.tuke.gamestudio.server.service.RatingException;
+import sk.tuke.gamestudio.server.service.RatingService;
+import sk.tuke.gamestudio.server.service.RatingServiceJDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.Date;
 
 import static junit.framework.TestCase.assertEquals;
-import static sk.tuke.gamestudio.pictureslidingpuzzle.core.Field.GAME_NAME;
+import static sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Field.GAME_NAME;
 
 
 public class RatingServiceTest {
@@ -27,9 +27,16 @@ public class RatingServiceTest {
 
     @Before@After
     public void setUp() throws Exception {
-        Connection c = DriverManager.getConnection(URL, USER, PASS);
-        Statement s = c.createStatement();
-        s.execute(DELETE);
+        try(Connection c = DriverManager.getConnection(URL, USER, PASS)) {
+            try (Statement s = c.createStatement()){
+                s.execute(DELETE);
+            }
+
+        }
+        catch (Exception e){
+            throw new Exception();
+        }
+
     }
 
     @Test
@@ -51,7 +58,7 @@ public class RatingServiceTest {
         ratingService.setRating(r1);
         ratingService.setRating(r2);
 
-        assertEquals(5, ratingService.getAverageRating(GAME_NAME));
+        assertEquals((7+3)/2, ratingService.getAverageRating(GAME_NAME));
     }
 
 }

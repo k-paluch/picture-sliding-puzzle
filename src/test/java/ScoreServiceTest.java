@@ -1,10 +1,10 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import sk.tuke.gamestudio.entity.Score;
-import sk.tuke.gamestudio.service.ScoreException;
-import sk.tuke.gamestudio.service.ScoreService;
-import sk.tuke.gamestudio.service.ScoreServiceJDBC;
+import sk.tuke.gamestudio.server.entity.Score;
+import sk.tuke.gamestudio.server.service.ScoreException;
+import sk.tuke.gamestudio.server.service.ScoreService;
+import sk.tuke.gamestudio.server.service.ScoreServiceJDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static sk.tuke.gamestudio.pictureslidingpuzzle.core.Field.GAME_NAME;
+import static sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Field.GAME_NAME;
 public class ScoreServiceTest{
     ScoreService scoreService = new ScoreServiceJDBC();
 
@@ -26,9 +26,15 @@ public class ScoreServiceTest{
 
     @Before@After
     public void setUp() throws Exception {
-        Connection c = DriverManager.getConnection(URL, USER, PASS);
-        Statement s = c.createStatement();
-        s.execute(DELETE);
+        try(Connection c = DriverManager.getConnection(URL, USER, PASS)) {
+            try (Statement s = c.createStatement()){
+                s.execute(DELETE);
+            }
+
+        }
+        catch (Exception e){
+            throw new Exception();
+        }
     }
 
     @Test

@@ -1,29 +1,37 @@
-package sk.tuke.gamestudio.pictureslidingpuzzle.consoleui;
+package sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.consoleui;
 
-import sk.tuke.gamestudio.entity.Comment;
-import sk.tuke.gamestudio.entity.Rating;
-import sk.tuke.gamestudio.entity.Score;
-import sk.tuke.gamestudio.pictureslidingpuzzle.core.Difficulty;
-import sk.tuke.gamestudio.pictureslidingpuzzle.core.Field;
-import sk.tuke.gamestudio.pictureslidingpuzzle.core.Gamestate;
-import sk.tuke.gamestudio.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import sk.tuke.gamestudio.server.entity.Comment;
+import sk.tuke.gamestudio.server.entity.Rating;
+import sk.tuke.gamestudio.server.entity.Score;
+import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Difficulty;
+import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Field;
+import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Gamestate;
+import sk.tuke.gamestudio.server.service.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static sk.tuke.gamestudio.pictureslidingpuzzle.core.Field.GAME_NAME;
+import static sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Field.GAME_NAME;
 
 public class ConsoleUI {
+    @Autowired
+    private ScoreService scoreService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private RatingService ratingService;
+    private Date date = new Date();
     private final Pattern INPUT_PATTERN = Pattern.compile(
             "([Uu][Pp]|[Dd][Oo][Ww][Nn]|[Ll][Ee][Ff][Tt]|[Rr][Ii][Gg][Hh][Tt])"
     );
+    private final Pattern INPUT_RATE_PATTERN = Pattern.compile("[0-5]");
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private Field field;
 
@@ -62,7 +70,7 @@ public class ConsoleUI {
     }
 
     private void processInput() {
-        System.out.println("Make move (UP, DOWN, LEFT, RiGHT):");
+        System.out.println("Make move (UP, DOWN, LEFT, RIGHT):");
         System.out.printf("You've been playing for: %d seconds %n ", field.getPlayingTime());
         String line = readLine();
         Matcher m = INPUT_PATTERN.matcher(line);
@@ -78,33 +86,30 @@ public class ConsoleUI {
         String commentString = readLine();
         System.out.println("Enter your name");
         String name = readLine();
-        Date date = new Date();
         Comment comment = new Comment(name, GAME_NAME, commentString, date);
-        CommentService commentService = new CommentServiceJDBC();
         commentService.addComment(comment);
         System.out.println("Your comment was added to database");
     }
 
     private void showAverageRating() throws RatingException {
-        RatingService ratingService = new RatingServiceJDBC();
         System.out.println("The average rating is: " + ratingService.getAverageRating(GAME_NAME));
     }
 
-    private void rate(Date date) throws RatingException {
+    private void rate() throws RatingException {
         System.out.println("Your rating (0-5) stars");
-        int rate = Integer.valueOf(readLine());
-        do {
-            if (rate <= 5 && rate >= 0) {
-                System.out.println("Enter your name");
-                String name = readLine();
-                Rating rating = new Rating(name, GAME_NAME, rate, date);
-                RatingService ratingService = new RatingServiceJDBC();
-                ratingService.setRating(rating);
-            } else {
-                System.out.println("Wrong rating");
-                rate = Integer.valueOf(readLine());
-            }
-        } while (!(rate <= 5 && rate >= 0));
+        String rate = readLine();
+        Matcher m = INPUT_RATE_PATTERN.matcher(rate);
+                if(m.matches()) {
+                    if (Integer.parseInt(rate) <= 5 && Integer.parseInt(rate) >= 0) {
+                        System.out.println("Enter your name");
+                        String name = readLine();
+                        Rating rating = new Rating(name, GAME_NAME, Integer.parseInt(rate), date);
+                        ratingService.setRating(rating);
+                    }
+                }else {
+                    System.out.println("Wrong rating");
+                    rate();
+                }
     }
 
     private void saveScore() throws SQLException {
@@ -113,9 +118,7 @@ public class ConsoleUI {
         System.out.printf("Your score was: %d%n", points);
         System.out.println("Enter your name");
         String name = readLine();
-        Date date = new Date();
         Score score = new Score(GAME_NAME, name, points, date);
-        ScoreService scoreService = new ScoreServiceJDBC();
         List<Score> scores = scoreService.getBestScores(GAME_NAME);
         scoreService.addScore(score);
         if (scores.isEmpty()) {
@@ -128,16 +131,22 @@ public class ConsoleUI {
 
     private void printHighscore() {
         System.out.println("Score \t Date \t \t \t\t\tPlayer ");
-        ScoreService scoreService = new ScoreServiceJDBC();
         List<Score> scores = scoreService.getBestScores(GAME_NAME);
+        if(scores.isEmpty()){
+            System.out.println("No score to show");
+            return;
+        }
         for (Score s : scores) {
             System.out.println(s.toString());
         }
     }
 
     private void showComments() throws CommentException {
-        CommentService commentService = new CommentServiceJDBC();
         List<Comment> comments = commentService.getComments(GAME_NAME);
+        if(comments.isEmpty()){
+            System.out.println("No comments to show");
+            return;
+        }
         for (Comment c : comments) {
             System.out.println(c.toString());
             System.out.println();
@@ -149,11 +158,10 @@ public class ConsoleUI {
 
         String line = readLine();
         while (!line.equalsIgnoreCase("X")) {
-            Date date = new Date();
             if (line.equalsIgnoreCase("w")) {
                 comment();
             } else if (line.equalsIgnoreCase("r")) {
-                rate(date);
+                rate();
 
             } else if (line.equalsIgnoreCase("p")) {
                 this.generate();
@@ -169,6 +177,7 @@ public class ConsoleUI {
             line = readLine();
         }
         System.out.println("Bye have a great time!");
+        System.exit(0);
     }
 
     private void printMenu() {
@@ -181,16 +190,18 @@ public class ConsoleUI {
         System.out.println("<X> Exit");
     }
 
-    private void play() throws CommentException, RatingException, ScoreException, SQLException {
-        do {
+    public void play() throws CommentException, RatingException, ScoreException, SQLException {
+        if (field != null) {
+            do {
+                field.render();
+                processInput();
+                if (field.isSolved()) {
+                    field.setState(Gamestate.SOLVED);
+                }
+            } while (field.getState() == Gamestate.PLAYING);
             field.render();
-            processInput();
-            if (field.isSolved()) {
-                field.setState(Gamestate.SOLVED);
-            }
-        } while (field.getState() == Gamestate.PLAYING);
-        field.render();
-        saveScore();
-        run();
+            saveScore();
+            run();
+        }
     }
 }

@@ -1,9 +1,15 @@
-package sk.tuke.gamestudio.entity;
+package sk.tuke.gamestudio.server.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+@Entity
+@NamedQuery( name = "Score.getBestScores",
+        query = "SELECT s FROM Score s WHERE s.game=:game ORDER BY s.points DESC")
 public class Score implements Comparable<Score>, Serializable {
     private String game;
 
@@ -12,6 +18,10 @@ public class Score implements Comparable<Score>, Serializable {
     private int points;
 
     private Date playedOn;
+    @Id
+    @GeneratedValue
+    private int ident;
+    public Score() {}
 
     public Score(String game, String player, int points, Date playedOn) {
         this.game = game;
@@ -51,11 +61,13 @@ public class Score implements Comparable<Score>, Serializable {
     public void setPlayedOn(Date playedOn) {
         this.playedOn = playedOn;
     }
+    public int getIdent() { return ident; }
+    public void setIdent(int ident) { this.ident = ident; }
 
     @Override
     public String toString() {
         return  points +
-                "\t\t " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(playedOn.getTime()) + "\t" +player ;
+                "\t\t " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(playedOn.getTime()) + "\t" +ident ;
     }
 
     @Override
