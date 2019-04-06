@@ -1,14 +1,15 @@
 package sk.tuke.gamestudio.server.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import sk.tuke.gamestudio.server.entity.Comment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Transactional
 public class CommentServiceJPA implements CommentService{
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -19,6 +20,7 @@ public class CommentServiceJPA implements CommentService{
 
     @Override
     public List<Comment> getComments(String game) throws CommentException {
-        return entityManager.createNamedQuery("Comment.getComments").setParameter("game",game).setMaxResults(10).getResultList();
+        return entityManager.createNamedQuery("Comment.getComments")
+                .setParameter("game", game).setMaxResults(10).getResultList();
     }
 }

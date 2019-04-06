@@ -1,0 +1,48 @@
+POST http://localhost:8080/rest/score
+Content-Type: application/json
+
+{
+  "player": "kiko",
+  "game":"pictureslidingpuzzle",
+  "points": 60,
+  "playedOn": "2019-03-25T15:40:33"
+}
+
+###
+
+
+
+POST http://localhost:8080/rest/comment
+Content-Type: application/json
+
+{
+  "player": "kiko",
+  "game":"pictureslidingpuzzle",
+  "comment": "najsamlepsa hra",
+  "commentedOn": "2019-03-25T15:40:33"
+}
+
+###
+POST http://localhost:8080/rest/rating
+Content-Type: application/json
+
+{
+  "player": "kiko",
+  "game":"pictureslidingpuzzle",
+  "rating": "5",
+  "ratedOn": "2019-03-25T15:40:33"
+}
+
+###
+GET http://localhost:8080/rest/score/pictureslidingpuzzle
+Content-Type: application/json
+
+###
+GET http://localhost:8080/rest/rating/pictureslidingpuzzle
+Content-Type: application/json
+
+###
+GET http://localhost:8080/rest/comment/pictureslidingpuzzle
+Content-Type: application/json
+
+###

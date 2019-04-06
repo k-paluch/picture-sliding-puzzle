@@ -6,8 +6,10 @@ import sk.tuke.gamestudio.server.entity.Rating;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+
 @Transactional
 public class RatingServiceJPA implements RatingService {
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -18,13 +20,13 @@ public class RatingServiceJPA implements RatingService {
 
     @Override
     public int getAverageRating(String game) throws RatingException {
-        Float temp = Float.valueOf(entityManager.createNamedQuery("Rating.getAverageRating").setParameter("game",game).getSingleResult().toString());
-        return temp.intValue();
+        Float v = Float.valueOf(entityManager.createNamedQuery("Rating.getAverageRating").setParameter("game",game).getSingleResult().toString());
+        return v.intValue();
     }
 
     @Override
     public int getRating(String game, String player) throws RatingException {
-        Float temp = Float.valueOf(entityManager.createNamedQuery("Rating.getRating").setParameter("game",game).getSingleResult().toString());
-        return temp.intValue();
+        Float v = Float.valueOf(entityManager.createNamedQuery("Rating.getRating").setParameter("game",game).getSingleResult().toString());
+        return v.intValue();
     }
 }

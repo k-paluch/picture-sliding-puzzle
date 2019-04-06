@@ -67,7 +67,7 @@ public class Score implements Comparable<Score>, Serializable {
     @Override
     public String toString() {
         return  points +
-                "\t\t " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(playedOn.getTime()) + "\t" +ident ;
+                "\t\t " + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(playedOn.getTime()) + "\t" +player ;
     }
 
     @Override
