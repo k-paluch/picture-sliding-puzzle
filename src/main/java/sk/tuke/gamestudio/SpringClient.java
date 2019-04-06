@@ -25,7 +25,9 @@ public class SpringClient {
     public CommandLineRunner runner(ConsoleUI ui) { return args -> ui.run(); }
 
     @Bean
-    public ConsoleUI consoleUI() { return new ConsoleUI(); }
+    public sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.consoleui.ConsoleUI pictureslidingpuzzlePaluchConsoleUI() {
+        return new sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.consoleui.ConsoleUI();
+    }
 
     @Bean
     public RatingService ratingService() { return new RatingServiceRestClient(); }
