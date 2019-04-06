@@ -28,7 +28,6 @@ public class ScoreServiceRest {
     @Path("/{game}")
     @Produces("application/json")
     public List<Score> getBestScores(@PathParam("game") String game) throws ScoreException {
-        //TODO: vrátit skore prostrednictovm servisneho komponentu JPA
         return scoreService.getBestScores(game);
     }
 }
