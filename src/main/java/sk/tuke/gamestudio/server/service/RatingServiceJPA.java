@@ -5,6 +5,7 @@ import sk.tuke.gamestudio.server.entity.Rating;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 
 @Transactional
@@ -15,6 +16,14 @@ public class RatingServiceJPA implements RatingService {
 
     @Override
     public void setRating(Rating rating) throws RatingException {
+        List<Rating> ratings = entityManager.createNamedQuery("Rating.setRating").setParameter("player",rating.getPlayer()).getResultList();
+        if(!ratings.isEmpty()){
+            for (Rating r:ratings){
+                if (r.getPlayer().equals(rating.getPlayer())){
+                    r.setRating(rating.getRating());
+                }
+            }
+        }else
         entityManager.persist(rating);
     }
 
@@ -26,7 +35,7 @@ public class RatingServiceJPA implements RatingService {
 
     @Override
     public int getRating(String game, String player) throws RatingException {
-        Float v = Float.valueOf(entityManager.createNamedQuery("Rating.getRating").setParameter("game",game).getSingleResult().toString());
-        return v.intValue();
+        Rating r = (Rating) entityManager.createNamedQuery("Rating.getRating").setParameter("game",game).setParameter("player",player).getSingleResult();
+        return r.getRating();
     }
 }

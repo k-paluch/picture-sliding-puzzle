@@ -29,7 +29,7 @@ public class RatingServiceRestClient implements RatingService{
         try {
             Client client = ClientBuilder.newClient();
             return  client.target(URL)
-                    .path("/" + game)
+                    .path("/" + game+ "/" + player)
                     .request(MediaType.APPLICATION_JSON)
                     .get(new GenericType<Integer>() {
                     });
@@ -40,6 +40,15 @@ public class RatingServiceRestClient implements RatingService{
 
     @Override
     public int getAverageRating(String game) throws RatingException {
-        return 0;
+        try {
+            Client client = ClientBuilder.newClient();
+            return  client.target(URL)
+                    .path("/" + game)
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(new GenericType<Integer>() {
+                    });
+        } catch (Exception e) {
+            throw new RatingException("Error loading rating", e);
+        }
     }
 }

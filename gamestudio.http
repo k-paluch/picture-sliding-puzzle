@@ -2,9 +2,9 @@ POST http://localhost:8080/rest/score
 Content-Type: application/json
 
 {
-  "player": "kiko",
+  "player": "vajcak",
   "game":"pictureslidingpuzzle",
-  "points": 60,
+  "points": 55,
   "playedOn": "2019-03-25T15:40:33"
 }
 
@@ -29,8 +29,8 @@ Content-Type: application/json
 {
   "player": "kiko",
   "game":"pictureslidingpuzzle",
-  "rating": "5",
-  "ratedOn": "2019-03-25T15:40:33"
+  "rating": 2,
+  "ratedon": "2019-03-25T15:40:33"
 }
 
 ###
