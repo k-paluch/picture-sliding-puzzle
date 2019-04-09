@@ -18,11 +18,8 @@ public class RatingServiceJPA implements RatingService {
     public void setRating(Rating rating) throws RatingException {
         List<Rating> ratings = entityManager.createNamedQuery("Rating.setRating").setParameter("player",rating.getPlayer()).getResultList();
         if(!ratings.isEmpty()){
-            for (Rating r:ratings){
-                if (r.getPlayer().equals(rating.getPlayer())){
-                    r.setRating(rating.getRating());
-                }
-            }
+            ratings.get(0).setRating(rating.getRating());
+            entityManager.merge(ratings.get(0));
         }else
         entityManager.persist(rating);
     }
