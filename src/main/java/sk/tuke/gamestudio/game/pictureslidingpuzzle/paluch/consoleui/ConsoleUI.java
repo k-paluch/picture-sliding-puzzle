@@ -28,13 +28,14 @@ public class ConsoleUI {
     @Autowired
     private RatingService ratingService;
     private Date date = new Date();
-    private final Pattern INPUT_PATTERN = Pattern.compile(
-            "([Uu][Pp]|[Dd][Oo][Ww][Nn]|[Ll][Ee][Ff][Tt]|[Rr][Ii][Gg][Hh][Tt])"
-    );
+
     private final Pattern INPUT_RATE_PATTERN = Pattern.compile("[0-5]");
     private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private Field field;
-
+    private int rowcol;
+    private final Pattern INPUT_PATTERN = Pattern.compile(
+            "([0-{rowcol}][0-rowcol])"
+    );
     public ConsoleUI() {
     }
 
@@ -45,14 +46,17 @@ public class ConsoleUI {
             field = new Field(3, 3);
             field.setDifficulty(Difficulty.EASY);
             field.shuffle(5);
+            rowcol = 3;
         } else if (line.equalsIgnoreCase("medium")) {
             field = new Field(4, 4);
             field.setDifficulty(Difficulty.MEDIUM);
             field.shuffle(100);
+            rowcol=4;
         } else if (line.equalsIgnoreCase("hard")) {
             field = new Field(5, 5);
             field.setDifficulty(Difficulty.HARD);
             field.shuffle(200);
+            rowcol = 5;
         } else {
             System.out.println("Neplatny vstup skus znova!");
             generate();
@@ -69,13 +73,18 @@ public class ConsoleUI {
         }
     }
 
-    private void processInput() {
-        System.out.println("Make move (UP, DOWN, LEFT, RIGHT):");
+    private void processInput() throws RatingException, SQLException, CommentException {
+        System.out.println("Make move ([1-" + rowcol + "][1-" + rowcol + "])");
+        System.out.println("To exit type X");
         System.out.printf("You've been playing for: %d seconds %n ", field.getPlayingTime());
         String line = readLine();
+        if(line.equalsIgnoreCase("X")){
+            run();
+        }
         Matcher m = INPUT_PATTERN.matcher(line);
         if (m.matches()) {
-            field.move(line);
+            //field.move(line);
+            field.moveWeb(line);
         } else {
             System.out.println("Nezadal si dobry vstup, skus znova.");
         }

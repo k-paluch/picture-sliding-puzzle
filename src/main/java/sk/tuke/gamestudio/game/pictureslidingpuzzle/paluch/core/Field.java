@@ -8,7 +8,7 @@ public class Field {
     private Gamestate gamestate;
     private NullPuzzle nullPuzzle;
     private long startMillis;
-    public static final String GAME_NAME = "Picture Sliding Puzzle";
+    public static final String GAME_NAME = "pictureslidingpuzzle";
     private Difficulty difficulty;
     private boolean alreadyShuffled;
 
@@ -111,6 +111,37 @@ public class Field {
 
     public void setAlreadyShuffled() {
         this.alreadyShuffled = true;
+    }
+
+    public void moveWeb(String input){
+        int row,column;
+        row = Character.getNumericValue(input.charAt(0))-1;
+        column = Character.getNumericValue(input.charAt(1))-1;
+        int divRow =  this.getNullPuzzle().getRow() - row;
+        int divCol = this.getNullPuzzle().getColumn() - column;
+        if(divCol == 0 && divRow == 0){
+            System.out.println("Wrong input");
+            return;
+        }
+        if(divRow<= 1 && divRow >=(-1) &&
+                divCol <=1 && divCol>=(-1)){
+            if(divCol==1&&divRow==0){
+                move("RIGHT");
+            }
+            if(divCol==(-1)&&divRow==0){
+                move("LEFT");
+            }
+            if(divCol==0&&divRow==1){
+                move("DOWN");
+            }
+            if(divCol==0&&divRow==(-1)){
+                move("UP");
+            }
+        }
+        else{
+            System.out.println("Wrong input");
+            return;
+        }
     }
 
     public void move(String input) {
