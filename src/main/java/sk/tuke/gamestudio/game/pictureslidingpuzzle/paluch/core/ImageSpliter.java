@@ -8,8 +8,7 @@ import javax.imageio.ImageIO;
 
 public class ImageSpliter {
 
-    public ImageSpliter(Image img, int rows, int column){
-        this.getImages(img,rows,column);
+    public ImageSpliter(){
     }
 
     public  BufferedImage[] getImages(Image img, int rows, int column) {
