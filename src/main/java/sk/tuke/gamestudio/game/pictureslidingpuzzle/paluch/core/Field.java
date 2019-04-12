@@ -123,22 +123,97 @@ public class Field {
             System.out.println("Wrong input");
             return;
         }
-        if(divRow<= 1 && divRow >=(-1) && divCol <=1 && divCol>=(-1)){
-            if(divCol==1&&divRow==0){
+        if(divRow<= 2 && divRow >=(-2) && divCol <=2 && divCol>=(-2)) {
+            if (divCol == 1 && divRow == 0) {
                 move("RIGHT");
             }
-            if(divCol==(-1)&&divRow==0){
+            if (divCol == (-1) && divRow == 0) {
                 move("LEFT");
             }
-            if(divCol==0&&divRow==1){
+            if (divCol == 0 && divRow == 1) {
                 move("DOWN");
             }
-            if(divCol==0&&divRow==(-1)){
+            if (divCol == 0 && divRow == (-1)) {
                 move("UP");
             }
+            if (divCol == 2 && divRow == 0) {
+                doubleMove("RIGHT");
+            }
+            if (divCol == (-2) && divRow == 0) {
+                doubleMove("LEFT");
+            }
+            if (divCol == 0 && divRow == 2) {
+                doubleMove("DOWN");
+            }
+            if (divCol == 0 && divRow == (-2)) {
+                doubleMove("UP");
+            }
         }
-        else{
-            System.out.println("Wrong input");
+    }
+
+    public void doubleMove(String input){
+        if (input.equalsIgnoreCase("UP")) {
+            if ((this.getNullPuzzle().getRow() + 2) < rowCount) {
+                if (puzzles[this.getNullPuzzle().getRow() + 2][this.getNullPuzzle().getColumn()] != null) {
+                    puzzles[0][this.getNullPuzzle().getColumn()] = puzzles[1][this.getNullPuzzle().getColumn()];
+                    puzzles[1][this.getNullPuzzle().getColumn()] = puzzles[2][this.getNullPuzzle().getColumn()];
+                    puzzles[2][this.getNullPuzzle().getColumn()] = null;
+                    nullPuzzle.setRow(2);
+                    nullPuzzle.setColumn(this.getNullPuzzle().getColumn());
+                }
+            }else {
+                if(alreadyShuffled){
+                    System.out.println("Move is note possible.");
+                }
+            }
+        }
+        else if (input.equalsIgnoreCase("DOWN")) {
+            if ((this.getNullPuzzle().getRow() - 2) >= 0) {
+                if (puzzles[this.getNullPuzzle().getRow() - 2][this.getNullPuzzle().getColumn()] != null) {
+                    puzzles[2][this.getNullPuzzle().getColumn()] = puzzles[1][this.getNullPuzzle().getColumn()];
+                    puzzles[1][this.getNullPuzzle().getColumn()] = puzzles[0][this.getNullPuzzle().getColumn()];
+                    puzzles[0][this.getNullPuzzle().getColumn()] = null;
+                    nullPuzzle.setRow(0);
+                    nullPuzzle.setColumn(this.getNullPuzzle().getColumn());
+                }
+            }else {
+                if(alreadyShuffled){
+                    System.out.println("Move is note possible.");
+                }
+            }
+        }
+        else if (input.equalsIgnoreCase("RIGHT")) {
+            if ((this.getNullPuzzle().getColumn() - 2) >= 0) {
+                if (puzzles[this.getNullPuzzle().getRow()][this.getNullPuzzle().getColumn() - 2] != null) {
+                    puzzles[this.getNullPuzzle().getRow()][2] = puzzles[this.getNullPuzzle().getRow()][1];
+                    puzzles[this.getNullPuzzle().getRow()][1] = puzzles[this.getNullPuzzle().getRow()][0];
+                    puzzles[this.getNullPuzzle().getRow()][0] = null;
+                    nullPuzzle.setRow(this.getNullPuzzle().getRow());
+                    nullPuzzle.setColumn(0);
+                }
+            }else {
+                if(alreadyShuffled){
+                    System.out.println("Move is note possible.");
+                }
+            }
+        }
+        else if (input.equalsIgnoreCase("LEFT")) {
+            if ((this.getNullPuzzle().getColumn() + 2) < columnCount) {
+                if (puzzles[this.getNullPuzzle().getRow()][this.getNullPuzzle().getColumn() + 2] != null) {
+                    puzzles[this.getNullPuzzle().getRow()][0] = puzzles[this.getNullPuzzle().getRow()][1];
+                    puzzles[this.getNullPuzzle().getRow()][1] = puzzles[this.getNullPuzzle().getRow()][2];
+                    puzzles[this.getNullPuzzle().getRow()][2] = null;
+                    nullPuzzle.setRow(this.getNullPuzzle().getRow());
+                    nullPuzzle.setColumn(2);
+                }
+            }else {
+                if(alreadyShuffled){
+                    System.out.println("Move is note possible.");
+                }
+            }
+        }
+        else {
+            System.out.println("Wrong input, try again.");
         }
     }
 

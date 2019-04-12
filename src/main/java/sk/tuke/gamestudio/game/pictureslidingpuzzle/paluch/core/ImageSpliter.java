@@ -11,26 +11,23 @@ public class ImageSpliter {
     public ImageSpliter(){
     }
 
-    public  BufferedImage[] getImages(Image img, int rows, int column) {
-        BufferedImage[] splittedImages = new BufferedImage[rows * column];
+    public  BufferedImage[][] getImages(Image img, int rows, int column) {
+        BufferedImage[][] splitImages = new BufferedImage[rows][column];
         BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
         Graphics g = bi.createGraphics();
         g.drawImage(img, 0, 0, null);
         int width = bi.getWidth();
         int height = bi.getHeight();
-        int pos = 0;
-        int swidth = width / column;
-        int sheight = height / rows;
+        int sub_width = width / column;
+        int sub_height = height / rows;
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < column; j++) {
-                BufferedImage bimg = bi.getSubimage(j * swidth, i * sheight, swidth, sheight);
-                splittedImages[pos] = bimg;
-                pos++;
+                BufferedImage bimg = bi.getSubimage(j * sub_width, i * sub_height, sub_width, sub_height);
+                splitImages[i][j] = bimg;
             }
         }
-
-        return splittedImages;
+        return splitImages;
     }
 
     /*public static void main(String args[]) throws IOException {
