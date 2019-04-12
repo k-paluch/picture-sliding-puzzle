@@ -123,8 +123,7 @@ public class Field {
             System.out.println("Wrong input");
             return;
         }
-        if(divRow<= 1 && divRow >=(-1) &&
-                divCol <=1 && divCol>=(-1)){
+        if(divRow<= 1 && divRow >=(-1) && divCol <=1 && divCol>=(-1)){
             if(divCol==1&&divRow==0){
                 move("RIGHT");
             }
@@ -140,7 +139,6 @@ public class Field {
         }
         else{
             System.out.println("Wrong input");
-            return;
         }
     }
 
