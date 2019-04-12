@@ -88,6 +88,7 @@ public class ConsoleUI {
         if (m.matches()) {
             //field.move(line);
             field.moveWeb(line);
+            
         } else {
             System.out.println("Nezadal si dobry vstup, skus znova.");
         }
