@@ -3,6 +3,9 @@ import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Field;
 import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Gamestate;
 import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Puzzle;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import static junit.framework.TestCase.*;
 
 public class FieldTest {
@@ -10,14 +13,14 @@ public class FieldTest {
     private Puzzle[][] puzzles;
 
     @Test
-    public void testGenerate(){
+    public void testGenerate() throws IOException, URISyntaxException {
         field = new Field(3,3);
         puzzles = field.getPuzzles();
         assertNull(puzzles[2][2]);
     }
 
     @Test
-    public void testIsWon(){
+    public void testIsWon() throws IOException, URISyntaxException {
         field = new Field(3,3);
         assertTrue(field.isSolved());
         field.shuffle(5);
@@ -25,7 +28,7 @@ public class FieldTest {
     }
 
     @Test
-    public void testMove(){
+    public void testMove() throws IOException, URISyntaxException {
         field = new Field(3,3);
         field.move("DOWN");
         puzzles = field.getPuzzles();
@@ -42,7 +45,7 @@ public class FieldTest {
     }
 
     @Test
-    public void testSetState(){
+    public void testSetState() throws IOException, URISyntaxException {
         field = new Field(3,3);
         Gamestate gamestate = Gamestate.PLAYING;
         field.setState(Gamestate.PLAYING);

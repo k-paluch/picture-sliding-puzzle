@@ -2,12 +2,15 @@ import org.junit.Test;
 import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Field;
 import sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core.Puzzle;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import static junit.framework.TestCase.*;
 
 public class WebMoveTest {
 
     @Test
-    public void testMove(){
+    public void testMove() throws IOException, URISyntaxException {
         Field field = new Field(3, 3);
         field.moveWeb("23");
         Puzzle[][] puzzles = field.getPuzzles();
@@ -22,9 +25,8 @@ public class WebMoveTest {
         puzzles = field.getPuzzles();
         assertNull(puzzles[2][2]);
     }
-
     @Test
-    public void testDoubleMove(){
+    public void testDoubleMove() throws IOException, URISyntaxException {
         Field field = new Field(3, 3);
         field.moveWeb("13");
         Puzzle[][] puzzles = field.getPuzzles();

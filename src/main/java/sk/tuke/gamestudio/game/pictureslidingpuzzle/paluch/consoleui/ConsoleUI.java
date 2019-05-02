@@ -12,6 +12,7 @@ import sk.tuke.gamestudio.server.service.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +40,7 @@ public class ConsoleUI {
     public ConsoleUI() {
     }
 
-    private void generate() {
+    private void generate() throws IOException, URISyntaxException {
         System.out.println("Choose difficulty:");
         System.out.println("<E> EASY");
         System.out.println("<M> MEDIUM");
@@ -76,7 +77,7 @@ public class ConsoleUI {
         }
     }
 
-    private void processInput() throws RatingException, SQLException, CommentException {
+    private void processInput() throws RatingException, SQLException, CommentException, IOException, URISyntaxException {
         System.out.println("<[1-" + rowcol + "][1-" + rowcol + "]> Make move");
         System.out.println("<X> Exit");
         System.out.printf("You've been playing for: %d seconds %n ", field.getPlayingTime());
@@ -166,7 +167,7 @@ public class ConsoleUI {
         }
     }
 
-    public void run() throws CommentException, RatingException, SQLException {
+    public void run() throws CommentException, RatingException, SQLException, IOException, URISyntaxException {
         printMenu();
 
         String line = readLine();
@@ -203,7 +204,7 @@ public class ConsoleUI {
         System.out.println("<X> Exit");
     }
 
-    public void play() throws CommentException, RatingException, ScoreException, SQLException {
+    public void play() throws CommentException, RatingException, ScoreException, SQLException, IOException, URISyntaxException {
         if (field != null) {
             do {
                 field.render();

@@ -11,9 +11,9 @@ public class ImageSpliter {
     public ImageSpliter(){
     }
 
-    public  BufferedImage[][] getImages(Image img, int rows, int column) {
+    public  BufferedImage[][] getImages(Image img, int rows, int column) throws IOException {
         BufferedImage[][] splitImages = new BufferedImage[rows][column];
-        BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
+        BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
         Graphics g = bi.createGraphics();
         g.drawImage(img, 0, 0, null);
         int width = bi.getWidth();
@@ -25,6 +25,7 @@ public class ImageSpliter {
             for (int j = 0; j < column; j++) {
                 BufferedImage bimg = bi.getSubimage(j * sub_width, i * sub_height, sub_width, sub_height);
                 splitImages[i][j] = bimg;
+                ImageIO.write(splitImages[i][j],"png", new File("C:\\Users\\K\\Desktop\\PictureSlidingPuzzle\\src\\main\\resources\\static\\images\\pictureslidingpuzzle\\" + i + j + ".png"));
             }
         }
         return splitImages;
