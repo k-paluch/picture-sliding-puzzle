@@ -1,25 +1,13 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <title>Picture Sliding Puzzle</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="../static/css/pictureslidingpuzzle-paluch.css" />
+
 </head>
 <body>
-<h1>Picture Sliding Puzzle</h1>
-<a href="/pictureslidingpuzzle/new">New game</a><br/>
+<h1>Welcome to gamestudio!</h1>
 
-<h1>Choose difficulty</h1>
-<a href="/pictureslidingpuzzle/easy">easy</a><br/>
-
-<a href="/pictureslidingpuzzle/medium">medium</a><br/>
-
-<a href="/pictureslidingpuzzle/hard">hard</a><br/>
-
-
-
-<div th:text="${@pictureSlidingPuzzleController.gameState}"/>
-<div th:text="${@pictureSlidingPuzzleController.getDifficulty()}"/>
-<div th:utext="${@pictureSlidingPuzzleController.htmlField}"/>
+<ul>
+    <li><a href="pictureslidingpuzzle-paluch">Pictureslidingpuzzle - controller</a></li>
+    <li><a href="pictureslidingpuzzle-paluch/display/1">Pictureslidingpuzzle - view</a></li>
+</ul>
 </body>
 </html>

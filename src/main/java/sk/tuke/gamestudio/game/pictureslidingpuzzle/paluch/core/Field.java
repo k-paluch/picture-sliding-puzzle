@@ -1,13 +1,21 @@
 package sk.tuke.gamestudio.game.pictureslidingpuzzle.paluch.core;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 public class Field {
+    @Autowired
+    ServletContext servletContext;
     private Puzzle[][] puzzles;
     private int rowCount;
     private int columnCount;
@@ -18,6 +26,8 @@ public class Field {
     private Difficulty difficulty;
     private boolean alreadyShuffled;
     private BufferedImage[][] imgs;
+    private int height;
+    private int width;
     public Field(int rowCount, int columnCount) throws IOException, URISyntaxException {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
@@ -25,6 +35,7 @@ public class Field {
         generateImages();
         generate();
     }
+
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
@@ -58,11 +69,25 @@ public class Field {
         return ((int) (System.currentTimeMillis() - startMillis)) / 1000;
     }
 
-    private void generateImages() throws IOException, URISyntaxException {
+    private void generateImages() throws IOException {
         ImageSpliter imageSpliter = new ImageSpliter();
-        BufferedImage bi = ImageIO.read(new File("C:\\Users\\K\\Desktop\\PictureSlidingPuzzle\\src\\main\\resources\\static\\images\\pictureslidingpuzzle\\tuke.png"));
+        ImageIcon icon = null;
+        BufferedImage bi;
+        try {
+            icon = new ImageIcon(new URL("https://www.memerewards.com/images/2018/10/24/NOT_SURE_IF_YOURE_JOKING_OR_ACTUALLY_SERIOUS_15403602678276f6f1b10bd33c.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        if (icon != null) {
+            icon.paintIcon(null, bi.getGraphics(), 0, 0);
+        }
+        //URL url = new URL("http://iislab.kpi.fei.tuke.sk/static/images/icons/tuke.png");
+        //BufferedImage bi = ImageIO.read(url/*new File("tuke.png")*/);
         Image img = bi.getScaledInstance(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
         imgs = imageSpliter.getImages(bi, rowCount, columnCount);
+        this.height = imageSpliter.getHeight();
+        this.width = imageSpliter.getWidth();
     }
 
     private void generate() {
@@ -73,12 +98,14 @@ public class Field {
                 //puzzles[row][column] = new Puzzle(value);
                 //value++;
                 puzzles[row][column] = new Puzzle(imgs[row][column],Integer.toString(row)+column);
-                System.out.println(Integer.toString(row)+ column);
+                puzzles[row][column].setHigh(this.height);
+                puzzles[row][column].setWidth(this.width);
             }
         }
         gamestate = Gamestate.PLAYING;
+
+        nullPuzzle = new NullPuzzle(rowCount - 1, columnCount - 1,puzzles[rowCount-1][columnCount-1].getBufferedImage());
         puzzles[rowCount - 1][columnCount - 1] = null;
-        nullPuzzle = new NullPuzzle(rowCount - 1, columnCount - 1);
         startMillis = System.currentTimeMillis();
     }
 
@@ -90,7 +117,7 @@ public class Field {
         return this.columnCount;
     }
 
-    private NullPuzzle getNullPuzzle() {
+    public NullPuzzle getNullPuzzle() {
         return nullPuzzle;
     }
 

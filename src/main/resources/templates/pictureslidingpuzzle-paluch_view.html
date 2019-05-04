@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Minesweeper</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="refresh" content="1"/>
+    <link rel="stylesheet" th:href="@{../static/css/pictureslidingpuzzle-paluch.css}"/>
+</head>
+<body>
+<h1>Picture Sliding Puzzle</h1>
+<h2>Display ID: <span th:text="${@pictureSlidingPuzzlePaluchController.getDisplayId()}"/></h2>
+
+<div th:if="${@pictureSlidingPuzzlePaluchController.getField() == null}">
+    <img th:src="@{/images/pictureslidingpuzzle/paluch/qrcode.png}" height=10% , width="10%">
+</div>
+
+<div th:if="${@pictureSlidingPuzzlePaluchController.getField() != null}">
+    <div th:utext="${@pictureSlidingPuzzlePaluchController.getField()}"></div>
+</div>
+
+<div th:utext="${@pictureSlidingPuzzlePaluchController.Test()}"/>
+<h2>Scores</h2>
+<ol>
+    <li th:each="score : ${@pictureSlidingPuzzlePaluchController.getBestScores()}">
+        <span th:text="${score.player}"/>
+        <span th:text="${score.points}"/>
+    </li>
+</ol>
+</body>
+</html>

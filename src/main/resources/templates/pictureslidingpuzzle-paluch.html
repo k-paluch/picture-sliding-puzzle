@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Picture Sliding Puzzle</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{../static/css/pictureslidingpuzzle-paluch.css}"/>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        function refreshScore() {
+            $.ajax({url: "/api/score/pictureslidingpuzzle",}).done(function (json) {
+                $("#scoreList").empty();
+                for (var i in json) {
+                    var score = json[i];
+                    $("#scoreList").append($("<li>" + score.player + " " + score.points + " " + score.playedOn + "</li>"));
+                }
+            });
+        }
+
+        $(document).ready(refreshScore);
+        //]]>
+    </script>
+
+</head>
+<body>
+<h1>Picture Sliding Puzzle</h1>
+<a th:href="@{/pictureslidingpuzzle-paluch/new}">New game</a><br/>
+
+<h1>Choose difficulty</h1>
+<a th:href="@{/pictureslidingpuzzle-paluch/easy}">easy</a><br/>
+
+<a th:href="@{/pictureslidingpuzzle-paluch/medium}">medium</a><br/>
+
+<a th:href="@{/pictureslidingpuzzle-paluch/hard}">hard</a><br/>
+<a th:href="@{/pictureslidingpuzzle-paluch/display/pair/1}">Connect to display 1</a><br/>
+<a th:href="@{/pictureslidingpuzzle-paluch/display/unpair}">Disconnect from display</a><br/>
+
+<div th:if="${@pictureSlidingPuzzlePaluchController.getLoggedUser() != null}">
+    You are logged as <span th:text="${@pictureSlidingPuzzlePaluchController.getLoggedUser()}"/>.
+    <a th:href="@{/pictureslidingpuzzle-paluch/logout}">Logout</a>
+</div>
+
+<div th:if="${@pictureSlidingPuzzlePaluchController.getLoggedUser() == null}">
+    <form method="get" th:action="@{/pictureslidingpuzzle-paluch/login}">
+        Login: <input name="login" type="text"/>
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+
+<div th:if="${@pictureSlidingPuzzlePaluchController.getField() == null}">
+    <img th:src="@{/images/pictureslidingpuzzle/paluch/qrcode.png}" height=10% , width="10%">
+</div>
+<div th:text="${@pictureSlidingPuzzlePaluchController.gameState}"/>
+<div th:text="${@pictureSlidingPuzzlePaluchController.getDifficulty()}"/>
+<div th:utext="${@pictureSlidingPuzzlePaluchController.htmlField}"/>
+
+<h2>Scores</h2>
+<ol>
+    <li th:each="score : ${@pictureSlidingPuzzlePaluchController.getBestScores()}">
+        <span th:text="${score.player}"/>
+        <span th:text="${score.points}"/>
+    </li>
+</ol>
+
+<h2>Scores (from REST service)</h2>
+<input type="button" onclick="refreshScore()" value="Refresh"/>
+<ol id="scoreList"/>
+
+</body>
+</html>

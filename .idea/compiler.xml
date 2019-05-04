@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="12">
-      <module name="PictureSlidingPuzzle" target="1.11" />
+      <module name="PictureSlidingPuzzle" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
