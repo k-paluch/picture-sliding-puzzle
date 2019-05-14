@@ -47,17 +47,17 @@ public class ConsoleUI {
         System.out.println("<H> HARD");
         String line = readLine();
         if (line.equalsIgnoreCase("E")) {
-            field = new Field(3, 3);
+            field = new Field(3, 3,"https://www.memerewards.com/images/2018/10/24/NOT_SURE_IF_YOURE_JOKING_OR_ACTUALLY_SERIOUS_15403602678276f6f1b10bd33c.png");
             field.setDifficulty(Difficulty.EASY);
             field.shuffle(5);
             rowcol = 3;
         } else if (line.equalsIgnoreCase("M")) {
-            field = new Field(4, 4);
+            field = new Field(4, 4,"https://www.memerewards.com/images/2018/10/24/NOT_SURE_IF_YOURE_JOKING_OR_ACTUALLY_SERIOUS_15403602678276f6f1b10bd33c.png");
             field.setDifficulty(Difficulty.MEDIUM);
             field.shuffle(100);
             rowcol=4;
         } else if (line.equalsIgnoreCase("H")) {
-            field = new Field(5, 5);
+            field = new Field(5, 5,"https://www.memerewards.com/images/2018/10/24/NOT_SURE_IF_YOURE_JOKING_OR_ACTUALLY_SERIOUS_15403602678276f6f1b10bd33c.png");
             field.setDifficulty(Difficulty.HARD);
             field.shuffle(200);
             rowcol = 5;

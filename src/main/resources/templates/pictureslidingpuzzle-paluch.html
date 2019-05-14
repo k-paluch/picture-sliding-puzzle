@@ -2,13 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Picture Sliding Puzzle</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" th:href="@{../static/css/pictureslidingpuzzle-paluch.css}"/>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/pictureslidingpuzzle-paluch.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-        //<![CDATA[
+
         function refreshScore() {
             $.ajax({url: "/api/score/pictureslidingpuzzle",}).done(function (json) {
                 $("#scoreList").empty();
@@ -19,55 +29,122 @@
             });
         }
 
-        $(document).ready(refreshScore);
+        $(document).ready(refreshScore());
         //]]>
+    </script>
+    <script type="text/javascript">
+        //<![CDATA[
+        var myNumber = 0;
+
+        function raise() {
+            document.getElementById("myNumber").stepUp(1);
+            return myNumber;
+        }
+
+        function resetN() {
+            myNumber = 0;
+        }
+
+        function getMyNumber() {
+            return myNumber;
+        }
+
+        function refreshComments() {
+            $.ajax({url: "/api/comments/pictureslidingpuzzle",}).done(function (json) {
+                $("#commentList").empty();
+                for (var i in json) {
+                    var comment = json[i];
+                    $("#commentList").append($("<li>" + comment.player + " " + comment.comment + " " + comment.commentedOn + "</li>"));
+                }
+            });
+        }
+
+        $(document).ready(refreshComments());
+        //]]>
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $('nav').navResponsive();
+        });
     </script>
 
 </head>
 <body>
-<h1>Picture Sliding Puzzle</h1>
-<a th:href="@{/pictureslidingpuzzle-paluch/new}">New game</a><br/>
-
-<h1>Choose difficulty</h1>
-<a th:href="@{/pictureslidingpuzzle-paluch/easy}">easy</a><br/>
-
-<a th:href="@{/pictureslidingpuzzle-paluch/medium}">medium</a><br/>
-
-<a th:href="@{/pictureslidingpuzzle-paluch/hard}">hard</a><br/>
-<a th:href="@{/pictureslidingpuzzle-paluch/display/pair/1}">Connect to display 1</a><br/>
-<a th:href="@{/pictureslidingpuzzle-paluch/display/unpair}">Disconnect from display</a><br/>
-
-<div th:if="${@pictureSlidingPuzzlePaluchController.getLoggedUser() != null}">
-    You are logged as <span th:text="${@pictureSlidingPuzzlePaluchController.getLoggedUser()}"/>.
-    <a th:href="@{/pictureslidingpuzzle-paluch/logout}">Logout</a>
+<div class="topnav" id="myTopnav">
+    <a href="#" class="active">Picture Sliding Puzzle</a>
+    <a th:href="@{/pictureslidingpuzzle-paluch}">Reset</a>
+    <div class="dropdown">
+        <button class="dropbtn">New Game
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a th:href="@{/pictureslidingpuzzle-paluch/easy}">Easy</a>
+            <a th:href="@{/pictureslidingpuzzle-paluch/medium}">Medium</a>
+            <a th:href="@{/pictureslidingpuzzle-paluch/hard}">Hard</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Connection
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a th:href="@{/pictureslidingpuzzle-paluch/display/pair/1}">Connect to display</a>
+            <a th:href="@{/pictureslidingpuzzle-paluch/display/unpair}">Disconnect from display</a>
+        </div>
+    </div>
+    <div class="topnav-right">
+        <div th:if="${@pictureSlidingPuzzlePaluchController.getLoggedUser() != null}">
+            <a th:href="@{/pictureslidingpuzzle-paluch/logout}">Logout as <span
+                    th:text="${@pictureSlidingPuzzlePaluchController.getLoggedUser()}"/></a>
+        </div>
+    </div>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
+<script>
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>
+<div class="nav">
 
-<div th:if="${@pictureSlidingPuzzlePaluchController.getLoggedUser() == null}">
-    <form method="get" th:action="@{/pictureslidingpuzzle-paluch/login}">
-        Login: <input name="login" type="text"/>
-        <input type="submit" value="Login">
-    </form>
+    <div th:if="${@pictureSlidingPuzzlePaluchController.getLoggedUser() == null}">
+        <h2>Please login in order to comment and save your score!</h2>
+    </div>
+
 </div>
-
-
-<div th:if="${@pictureSlidingPuzzlePaluchController.getField() == null}">
-    <img th:src="@{/images/pictureslidingpuzzle/paluch/qrcode.png}" height=10% , width="10%">
-</div>
-<div th:text="${@pictureSlidingPuzzlePaluchController.gameState}"/>
-<div th:text="${@pictureSlidingPuzzlePaluchController.getDifficulty()}"/>
 <div th:utext="${@pictureSlidingPuzzlePaluchController.htmlField}"/>
-
-<h2>Scores</h2>
-<ol>
-    <li th:each="score : ${@pictureSlidingPuzzlePaluchController.getBestScores()}">
-        <span th:text="${score.player}"/>
-        <span th:text="${score.points}"/>
-    </li>
-</ol>
-
-<h2>Scores (from REST service)</h2>
-<input type="button" onclick="refreshScore()" value="Refresh"/>
-<ol id="scoreList"/>
-
+<br><br>
+<br><br>
+<form th:action="@{/pictureslidingpuzzle-paluch/setRating}" method="post">
+    <div class="rating">
+        <input type="radio" name="rating" value="5"id="star5"onchange="this.form.submit()"/><label for="star5" onchange="this.form.submit()"></label>
+        <input type="radio" name="rating" value="4"id="star4"onchange="this.form.submit()"/><label for="star4" onchange="this.form.submit()"></label>
+        <input type="radio" name="rating" value="3"id="star3"onchange="this.form.submit()"/><label for="star3" onchange="this.form.submit()"></label>
+        <input type="radio" name="rating" value="2"id="star2"onchange="this.form.submit()"/><label for="star2" onchange="this.form.submit()"></label>
+        <input type="radio" name="rating" value="1"id="star1"onchange="this.form.submit()"/><label for="star1" onchange="this.form.submit()"></label>
+    </div>
+</form>
+<br><br>
+<h2>Change picture(png URL):</h2>
+<form th:action="@{/pictureslidingpuzzle-paluch/changePic}" method="post">
+    <input name="URL" type="text" required>
+    <br>
+    <button class="button1" type="submit">Change picture</button>
+    <br><br>
+</form>
+<h2>Add comment</h2>
+<ol id="commentList"/>
+<form th:action="@{/pictureslidingpuzzle-paluch/addComment}" method="post">
+    <textarea name="comment" required></textarea>
+    <br>
+    <button class="button1" type="submit">Comment</button>
+    <br><br>
+</form>
 </body>
 </html>

@@ -28,10 +28,12 @@ public class Field {
     private BufferedImage[][] imgs;
     private int height;
     private int width;
-    public Field(int rowCount, int columnCount) throws IOException, URISyntaxException {
+    private String URL = "http://www.namakanyden.sk/2017/assets/images/logo_kpi.png";
+    public Field(int rowCount, int columnCount, String URL) throws IOException, URISyntaxException {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
         this.puzzles = new Puzzle[rowCount][columnCount];
+        this.URL = URL;
         generateImages();
         generate();
     }
@@ -69,22 +71,33 @@ public class Field {
         return ((int) (System.currentTimeMillis() - startMillis)) / 1000;
     }
 
+    public void setURL(String url){
+        this.URL = url;
+    }
+
+    public String getURL(){
+        return this.URL;
+    }
+
+
+
     private void generateImages() throws IOException {
+
         ImageSpliter imageSpliter = new ImageSpliter();
         ImageIcon icon = null;
         BufferedImage bi;
         try {
-            icon = new ImageIcon(new URL("https://www.memerewards.com/images/2018/10/24/NOT_SURE_IF_YOURE_JOKING_OR_ACTUALLY_SERIOUS_15403602678276f6f1b10bd33c.png"));
+            icon = new ImageIcon(new URL(URL));
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
         if (icon != null) {
             icon.paintIcon(null, bi.getGraphics(), 0, 0);
         }
         //URL url = new URL("http://iislab.kpi.fei.tuke.sk/static/images/icons/tuke.png");
         //BufferedImage bi = ImageIO.read(url/*new File("tuke.png")*/);
-        Image img = bi.getScaledInstance(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_RGB);
         imgs = imageSpliter.getImages(bi, rowCount, columnCount);
         this.height = imageSpliter.getHeight();
         this.width = imageSpliter.getWidth();
@@ -450,7 +463,6 @@ public class Field {
             return Math.max(0, rowCount * columnCount * 10 * 4 - getPlayingTime());
         }
     }
-
 
     public void render() {
         System.out.println();
